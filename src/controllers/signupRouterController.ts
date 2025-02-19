@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import { User } from "../entities/User";
 import bcrypt from "bcrypt";
 import { AppDataSource } from '../config/data-source';
+import { log } from 'console';
 
 export const signupRouterController = async (req: Request, res: Response) => {
   // Check if BCRYPT_SALTROUNDS is defined

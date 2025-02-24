@@ -16,12 +16,15 @@ export class Expense {
   name!: string;
 
   @Column()
+  amount!: number;
+
+  @Column()
   description!: string;
 
   @Column()
   timestamp!: Date;
 
-  @ManyToOne(() => User, (user) => user.expenses, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user:User) => user.expenses, { onDelete: "CASCADE" })
   @JoinColumn({ name: "owner_id" })
   owner!: User;
 }

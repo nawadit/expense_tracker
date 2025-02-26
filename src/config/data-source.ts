@@ -14,9 +14,17 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME || "expense_tracker",
   synchronize: true, // Set to false in production
   logging: false,
-  entities: ["src/entities/**/*.ts"],
-  migrations: ["src/migrations/**/*.ts"],
-  subscribers: ["src/subscribers/**/*.ts"],
+
+  // Entities, migrations, and subscribers during development mode
+  // entities: ["src/entities/**/*.ts"],
+  // migrations: ["src/migrations/**/*.ts"],
+  // subscribers: ["src/subscribers/**/*.ts"],
+
+  // Entities, migrations, and subscribers during production mode
+  entities: ["dist/entities/**/*.js"],
+  migrations: ["dist/migrations/**/*.js"],
+  subscribers: ["dist/subscribers/**/*.js"],
+
 });
 
 AppDataSource.initialize()

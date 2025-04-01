@@ -7,5 +7,7 @@ export const structureVerificationForDelete = (
 ) => {
   if (typeof req.body == "object" && typeof req.body.id == "number") {
     next();
+  }else{
+    res.status(401).json({errorMessage:"Invalid request body"})
   }
 };

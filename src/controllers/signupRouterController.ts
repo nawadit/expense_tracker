@@ -1,10 +1,10 @@
-import { SaveOptions } from './../../node_modules/typeorm/browser/repository/SaveOptions.d';
+import { SaveOptions } from "./../../node_modules/typeorm/browser/repository/SaveOptions.d";
 import { signupRouterBody } from "../interfaces/routes/signupRouterBody.interface";
 import { Request, Response } from "express";
 import { User } from "../entities/User";
 import bcrypt from "bcrypt";
-import { AppDataSource } from '../config/data-source';
-import { log } from 'console';
+import { AppDataSource } from "../config/data-source";
+import { log } from "console";
 
 export const signupRouterController = async (req: Request, res: Response) => {
   // Check if BCRYPT_SALTROUNDS is defined
@@ -31,9 +31,17 @@ export const signupRouterController = async (req: Request, res: Response) => {
     return res.status(500).json({ errorMessage: "Internal server error" });
   }
 
-
   // Create new user
   const userRepository = AppDataSource.getRepository(User);
+
+  const userInDB = await userRepository.findOne({
+    where: { email: reqBody.email },
+  });
+  if (userInDB != null) {
+    res.status(402).json({ message: "Email already in use. " });
+    return;
+  }
+
   const newUser = new User();
   newUser.first_name = reqBody.first_name;
   newUser.last_name = reqBody.last_name;
@@ -42,7 +50,7 @@ export const signupRouterController = async (req: Request, res: Response) => {
 
   //Try to save the new user to the database
   try {
-    await userRepository.save(newUser)
+    await userRepository.save(newUser);
     return res.status(201).json({ message: "User created successfully" });
   } catch (err) {
     console.error("Error saving user:", err);

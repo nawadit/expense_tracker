@@ -5,4 +5,4 @@ import { loginRouterController } from "../controllers/loginRouterController";
 
 export const loginRouter = Router();
 
-loginRouter.post("/", requestBodyStructureVerification, loginRouterController);
+loginRouter.get("/", requestBodyStructureVerification, loginRouterController);

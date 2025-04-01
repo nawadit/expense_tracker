@@ -20,6 +20,9 @@ export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
       req.body.user = decoded;
         next();
     } catch (err) {
+      if(err instanceof Error && err.message == "invalid token"){
+        res.status(402).json({errorMessage:"Invalid token"})
+      }
       console.log("Couldn't decode jwt" + "error: "+ JSON.stringify(err) +"token: " + token);
       res.status(500).json({
         errorMessage: "Internal server error.",

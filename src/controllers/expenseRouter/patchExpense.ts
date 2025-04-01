@@ -33,6 +33,6 @@ export const pathExpenseController = async (req: Request, res: Response) => {
   } else {
     console.log("No expense entry of given id found in database.");
     console.dir(req.body, { depth: null });
-    res.status(402).json({ errorMessage: "Bad request." });
+    res.status(402).json({ errorMessage: "Expense not found." });
   }
 };

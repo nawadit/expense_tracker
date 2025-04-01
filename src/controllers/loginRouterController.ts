@@ -15,7 +15,7 @@ export const loginRouterController = async (req: Request, res: Response) => {
 
     res
       .status(500)
-      .json({ errorMessage: "Internal server error: Missing JWT_SECRET." });
+      .json({ errorMessage: "Internal server error." });
     return;
   }
 

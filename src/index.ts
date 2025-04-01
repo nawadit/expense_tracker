@@ -1,17 +1,25 @@
-import "dotenv";
-import express from "express";
+import dotenv from "dotenv";
 import { AppDataSource } from "./config/data-source";
 import { loginRouter } from "./routes/loginRouter";
 import { signupRouter } from "./routes/signupRouter";
 import { expenseRouter } from "./routes/expenseRouter";
+import cors  from "cors";
+import express from "express";
 
 const app = express();
+dotenv.config();
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+    methods: 'GET,POST,PUT,DELETE',
+    credentials: true
+}));
 
 app.use(express.json());
 
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
-app.use("/expense", expenseRouter) 
+app.use("/expense", expenseRouter);
 //create a route handler for posting expenses.
 
 app.get("/", (req, res) => {

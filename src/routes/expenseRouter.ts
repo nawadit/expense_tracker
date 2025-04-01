@@ -13,5 +13,5 @@ export const expenseRouter = express.Router();
 
 expenseRouter.post("/",verifyJWT, structureVerificationForGet, postExpenseRouterController)
 expenseRouter.patch("/",verifyJWT,  structureVerificationForPatch,accessVerification, pathExpenseController)
-expenseRouter.delete("/", verifyJWT, structureVerificationForDelete,deleteExpenseController )
+expenseRouter.delete("/", verifyJWT, structureVerificationForDelete,accessVerification, deleteExpenseController )
 expenseRouter.get("/", verifyJWT,getExpenseController )

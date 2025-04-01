@@ -26,8 +26,8 @@ export const postExpenseRouterController = async (
   if (currentUser != null) {
     newExpense.owner = currentUser;
   } else {
-    console.log("User doesnot exist. ");
-    res.status(402).json({ errorMessage: "Bad request" });
+    console.log("User not found on db. ");
+    res.status(500).json({ errorMessage: "Internal server error" });
   }
   try {
     const sqlQuery = await expenseRepository.save(newExpense);
